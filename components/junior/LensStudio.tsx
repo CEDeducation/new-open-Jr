@@ -9,7 +9,7 @@ export function LensStudio({ complete, addObservation }: LabProps) {
   const f = kind === 'converging' ? focus : -focus, im = lensImage(f, distance, height);
   const scale = 2.8, lensX = 400, axis = 238, objX = lensX - distance * scale, objTop = axis - height * 2.5, imageX = lensX + im.imageDistance * scale, imageTop = axis - im.imageHeight * 2.5;
   const offscreen = !Number.isFinite(imageX) || Math.abs(imageX) > 3000 || !Number.isFinite(imageTop) || Math.abs(imageTop) > 2000;
-  const move = (e: PointerEvent<SVGSVGElement>) => { const r = e.currentTarget.getBoundingClientRect(); const x = (e.clientX - r.left) * 800 / r.width; setDistance(clamp(Math.round((lensX - x) / scale), 20, 125)); };
+  const move = (e: PointerEvent<SVGGElement>) => { const r = e.currentTarget.getBoundingClientRect(); const x = (e.clientX - r.left) * 800 / r.width; setDistance(clamp(Math.round((lensX - x) / scale), 20, 125)); };
   const path = (a: [number, number], b: [number, number]) => `M${a[0]} ${a[1]} L${b[0]} ${b[1]}`;
   const raySlope1 = (axis - objTop) / (f * scale), raySlope2 = (axis - objTop) / (distance * scale);
   const pointRight1: [number, number] = [795, objTop + raySlope1 * (795 - lensX)], pointRight2: [number, number] = [795, axis + raySlope2 * (795 - lensX)];
